@@ -1,0 +1,34 @@
+MONIKA
+Good evening and welcome to “911, Montgomery County, Whats your emergency?”
+So we came across a dataset on Kaggle containing details of more than 600,000  911 calls made to Montgomery county in Pennsylvania. 
+This dataset happened to be too large to upload on github, so we access this data from google cloud storage.
+Heres a quick look at the data. As you can see, we have coordinates, timestamp, the department that received the call and the type of emergency. There were loads of amusing emergency types which inspired our imaginations and provoked our analytical minds.
+Ill hand you over to Dan
+
+DAN
+Before we jump in to these 911 calls, I’d like to give you a little introduction into MC…
+
+I pulled some county statistics online. As you can see here, there are more than 3000 counties in the US, So we thought we would just give you a quick analysis of MC in the real critical metrics.
+When it comes to Excessive drinking MC ranks 2530th. In terms of Chlamydia, they are 1228th. In general, MC residents prefer to drive alone to work, rather than car-pool and save the environment. And out of the 3000 plus counties, our beloved MC ranks 268th for obesity. 
+
+So now that we have painted an informative picture of MC, Claudia can talk you through the cleaning of our data.
+
+CLAUDIA
+In terms of cleaning our data, we had to remove a few columns. We had to split out the department receiving the calls from the type of emergency. We then extracted out some key date/time columns from the timestamp which we would need for our further analysis later.
+Once the columns were correct, it was time to reduce the data size by removing outliers. As you can see, we had a quick check of the types of emergencies and how frequently they happened. We decided to remove any type of emergency that happened less than 10 times. Ill hand you over to Claudia to continue the removal of outliers.
+
+For the next step of the cleanse, we decided we only wanted calls that came from the area. To do this we used Google Geocoding API to get the Coordinates of Philly. We then used some maths. In a separate Python File we have defined a function called “Haversine”. We wont go into the maths, but essentially we can enter 2 sets of coordinates and it will determine the distance between them. So we applied this function using the coordinates of philly and the coordinates of each call to generate a column in the dataframe showing the distance in km from Philly.
+In an attempt to determine the outliers by distance from philly, we used our interquartile range and we have a box plot here also. This may not look like a box plot. Bizarrely, This is due to the high number of calls made from other countries!
+Here we can see the locations of the calls made from more than 1000km from Philly. So, moving forward we cleansed our data by removing these far away calls.
+I will hand back to Monika for some analysis on the calls
+
+MONIKA
+This first question we asked, is which departments are receiving the most calls?
+Here we have a pie chart. We can see that more than half of the calls were to Emergency Medical Services, and over a third off the calls were to the Traffic department.
+We than asked ourselves which type of traffic calls are the most common?
+Here we have a horizontal bar chart, sorted descending. The x-axis represents the number of calls from left to right, and on the y axis we can see the different types of traffic calls. Yes, there were a few vehicle fires and hazardous road conditions, but we can see the vast majority with more than 140000 calls were related to vehicle accidents. So we did some more analysis on these vehicle accidents.
+We wondered which day of the week is worst, and which month of the year is worst for vehicle accidents?
+As you can see the safest time to be driving appears to be Sundays in August!
+
+I will hand you over to Dan for some other analysis
+
